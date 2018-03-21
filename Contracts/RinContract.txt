@@ -20,28 +20,26 @@ contract owned {
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract RinToken {
-    // Public variables of the token
+    /// Public variables of the token
     string public name;
     string public symbol;
     uint8 public decimals = 18;
-    // 18 decimals is the strongly suggested default, avoid changing it
+    /// 18 decimals is the strongly suggested default, avoid changing it
     uint256 public totalSupply;
 
-    // This creates an array with all balances
+    /// This creates an array with all balances
     mapping (address => uint256) public balanceOf;
     mapping (address => mapping (address => uint256)) public allowance;
 
-    // This generates a public event on the blockchain that will notify clients
+    /// This generates a public event on the blockchain that will notify clients
     event Transfer(address indexed from, address indexed to, uint256 value);
 
-    // This notifies clients about the amount burnt
+    /// This notifies clients about the amount burnt
     event Burn(address indexed from, uint256 value);
 
-    /**
-     * Constrctor function
-     *
-     * Initializes contract with initial supply tokens to the creator of the contract
-     */
+    
+    /// Create Owners initials Rin Token Supply 
+     
     function RinToken(
         uint256 initialSupply = 1000000000, // Initial Supply would be 1 billion
         string tokenName = 'Rin Token', // Token Name is Rin Token
@@ -53,9 +51,8 @@ contract RinToken {
         symbol = tokenSymbol;                               // Set the symbol for display purposes
     }
 
-    /**
-     * Internal transfer, only can be called by this contract
-     */
+    /// Internal transfers conducted by this contract
+
     function _transfer(address _from, address _to, uint _value) internal {
         // Prevent transfer to 0x0 address. Use burn() instead
         require(_to != 0x0);
@@ -74,14 +71,8 @@ contract RinToken {
         assert(balanceOf[_from] + balanceOf[_to] == previousBalances);
     }
 
-    /**
-     * Transfer tokens
-     *
-     * Send `_value` tokens to `_to` from your account
-     *
-     * @param _to The address of the recipient
-     * @param _value the amount to send
-     */
+    /// Token Transfers
+
     function transfer(address _to, uint256 _value) public {
         _transfer(msg.sender, _to, _value);
     }
@@ -201,8 +192,10 @@ contract MyAdvancedToken is owned, RinToken {
         balanceOf[_to] += _value;                           // Add the same to the recipient
         Transfer(_from, _to, _value);
     }
-
-    /// @notice Create `mintedAmount` tokens and send it to `target`
+    
+    /*  Mint Attribute */
+    
+    /// Mint New Rin Token and send it to target address
     /// @param target Address to receive the tokens
     /// @param mintedAmount the amount of tokens it will receive
     function mintToken(address target, uint256 mintedAmount) onlyOwner public {
@@ -211,6 +204,8 @@ contract MyAdvancedToken is owned, RinToken {
         Transfer(0, this, mintedAmount);
         Transfer(this, target, mintedAmount);
     }
+    
+    /* Freeze Attribute */
 
     /// @notice `freeze? Prevent | Allow` `target` from sending & receiving tokens
     /// @param target Address to be frozen
