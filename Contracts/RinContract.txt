@@ -43,11 +43,11 @@ contract RinToken {
      * Initializes contract with initial supply tokens to the creator of the contract
      */
     function RinToken(
-        uint256 initialSupply = 1000000000,
-        string tokenName = 'Rin Token',
-        string tokenSymbol = 'R2N',
+        uint256 initialSupply = 1000000000, // Initial Supply would be 1 billion
+        string tokenName = 'Rin Token', // Token Name is Rin Token
+        string tokenSymbol = 'R2N', // R2N would be the Token Symbol
     ) public {
-        totalSupply = initialSupply * 10 ** uint256(decimals);  // Update total supply with the decimal amount
+        totalSupply = initialSupply * 10 ** uint256(decimals);  // Update total supply with the decimal amount which will come out to 10 billion. Initial Supply multiplied by 10
         balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens
         name = tokenName;                                   // Set the name for display purposes
         symbol = tokenSymbol;                               // Set the symbol for display purposes
