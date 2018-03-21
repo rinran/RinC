@@ -170,7 +170,7 @@ contract RinToken {
 }
 
 /******************************************/
-/*       ADVANCED TOKEN STARTS HERE       */
+/*   Rin Token Attribute Configuration    */
 /******************************************/
 
 contract MyAdvancedToken is owned, RinToken {
